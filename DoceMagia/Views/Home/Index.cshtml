@@ -1,8 +1,57 @@
-﻿@{
+﻿@model List<Receita>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Categorias de receitas -->
+<div class="page-header">
+    <h1><strong>receitas</strong> com alma caseira</h1>
+    <div class="category-tags">
+        @foreach (Categoria categoria in ViewBag.Categorias)
+        {
+            <span class="category-tag">
+                <i class="@categoria.Icone"></i> @categoria.Nome
+            </span>
+        }
+    </div>
+</div>
+
+<!-- Destaque sazonal (apenas apelo visual) -->
+<div class="featured-recipe">
+    <div class="featured-text">
+        <h3><i class="fas fa-fire" style="color: var(--tomate);"></i> Receita em destaque</h3>
+        <p>Bolo de Chocolate delicioso · por chef Ana</p>
+    </div>
+    <div class="featured-btn">ver receita</div>
+</div>
+
+<!-- Grade de receitas 1: mais populares -->
+<div class="section-title">
+    <i class="fas fa-hotdog"></i>
+    <span>Receitas populares</span>
+</div>
+
+<div class="recipe-grid">
+    @foreach (Receita receita in Model)
+    {
+        <a asp-action="Receita" asp-route-id="@receita.Id" style="text-decoration: none;">
+        <div class="recipe-card">
+            <div class="card-img"
+                 style="background-image: url('@receita.Foto');">
+                <span class="difficulty-badge"><i class="far fa-clock"></i>@receita.TempoPreparo</span>
+            </div>
+            <div class="card-content">
+                <h3 class="recipe-name">@receita.Nome</h3>
+                <div class="recipe-meta">
+                    <span class="difficulty-indicator"><i class="fas fa-thermometer-half"></i>@receita.Dificuldade</span>
+                    <span class="ingredients-count"><i class="fas fa-carrot"></i> 9 itens</span>
+                </div>
+                <div class="card-footer">
+                    <span><i class="far fa-heart"></i> 234</span>
+                    <span><i class="far fa-comment"></i> 12</span>
+                </div>
+            </div>
+        </div>
+        </a>
+    }
 </div>

@@ -1,4 +1,5 @@
 using DoceMagia.Models;
+using GCook.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -14,13 +15,15 @@ public class AppDbContext : IdentityDbContext<Usuario>
     public DbSet<Categoria> Categorias { get; set; }
     public DbSet<Ingrediente> Ingredientes { get; set; }
     public DbSet<Preparo> Preparos { get; set; }
-    public DbSet<Receita> receitas { get; set; }
+    public DbSet<Receita> Receitas { get; set; }
     public DbSet<ReceitaIngrediente> ReceitaIngredientes{ get; set; }
     public DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+
+        AppDbSeed appDbSeed = new (builder);
 
         // Definindo chave primaria composta
         builder.Entity<ReceitaIngrediente>()

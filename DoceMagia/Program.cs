@@ -1,5 +1,6 @@
 using DoceMagia.Data;
 using DoceMagia.Models;
+using DoceMagia.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +25,7 @@ builder.Services.AddIdentity<Usuario, IdentityRole>(
 .AddDefaultTokenProviders();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<IUserService, UserService>();
 
 var app = builder.Build();
 
